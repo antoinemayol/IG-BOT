@@ -14,10 +14,14 @@ class IG_BOT():
             self.log_not_save = False
             self.username, self.password = get_login(self)
             self.login()
-        #verify files
-        #get datas from files
-        #start prog
+        '''
+        A expliquer !
+            verify files
+            get datas from files
+            start prog and menu
+        '''
         pass
+        
     
     def start_driver(self):
         try:
@@ -49,5 +53,6 @@ class IG_BOT():
                     if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
                         url_get = True
                         self.account_login,self.username_good,self.password_good = True,True,True
+                        print("\nBonjour "+self.username+", vous êtes maintenant connécté !")
                     
 if __name__ == "__main__":IG_BOT()
