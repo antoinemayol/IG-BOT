@@ -16,7 +16,11 @@ class IG_BOT():
             self.login()
         '''
         A expliquer !
-            verify files
+            verify files:
+                - username_followers.txt
+                - username_never_unfollow.txt
+                - username_to_unfollow.txt
+                (à voir soit on met des .txt ou des .json <- avantageant)
             get datas from files
             start prog and menu
         '''
@@ -33,6 +37,7 @@ class IG_BOT():
     def login(self):
         self.driver.get("https://www.instagram.com/accounts/login/")
         sleep(1)
+        #Entrée des logins
         self.driver.find_element_by_xpath('//input[@name="username"]').send_keys(self.username)
         self.driver.find_element_by_xpath('//input[@name="password"]').send_keys(self.password)
         self.driver.find_element_by_xpath('//button[@type="submit"]').click()
@@ -40,17 +45,20 @@ class IG_BOT():
         
         while not url_get:
             try:
+                #Si login mauvais
                 text_error = self.driver.find_element_by_xpath('//p[contains(text(), "' + "Le nom d’utilisateur entré n’appartient à aucun compte. Veuillez le vérifier et réessayer." + '")]')
                 url_get = True
                 print("Your username is wrong ! ;)")
             except:
                 try:
+                    #Si mdp mauvais
                     text_error = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div[2]')
                     url_get = True
                     print("Your password is wrong ! ;)")
                     self.username_good = True
                 except:
                     if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
+                        #Si login et mdp bon !
                         url_get = True
                         self.account_login,self.username_good,self.password_good = True,True,True
                         print("\nBonjour "+self.username+", vous êtes maintenant connécté !")
