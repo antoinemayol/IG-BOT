@@ -48,7 +48,6 @@ class IG_BOT():
                 except:
                     if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
                         url_get = True
-        
-        self.account_login,self.username_good,self.password_good = True,True,True
+                        self.account_login,self.username_good,self.password_good = True,True,True
                     
 if __name__ == "__main__":IG_BOT()
