@@ -49,6 +49,7 @@ class IG_BOT():
                 text_error = self.driver.find_element_by_xpath('//p[contains(text(), "' + "Le nom d’utilisateur entré n’appartient à aucun compte. Veuillez le vérifier et réessayer." + '")]')
                 url_get = True
                 print("Your username is wrong ! ;)")
+                if self.log_not_save == False : self.log_not_save = True
             except:
                 try:
                     #Si mdp mauvais
@@ -56,6 +57,7 @@ class IG_BOT():
                     url_get = True
                     print("Your password is wrong ! ;)")
                     self.username_good = True
+                    if self.log_not_save == False : self.log_not_save = True
                 except:
                     if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
                         #Si login et mdp bon !
