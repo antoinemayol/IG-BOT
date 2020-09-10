@@ -15,5 +15,5 @@ def write_secret(username,password):
         json.dump(data, json_file)
 
 if __name__ == "__main__":
-    write_secret("antoine","mdp")
-    print(get_secret())
+    write_secret("tino","lebgh")
+    #print(get_secret())
