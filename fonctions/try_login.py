@@ -1,7 +1,6 @@
-from ID.get_login_informations import get_login
 from time import sleep
 
-def login(self,username,password,stay_connect = False,first_use = False,only_username_safe = False):
+def try_login(self,username,password,stay_connect = False,first_use = False,only_username_safe = False):
 
     if stay_connect:
         if first_use:pass#enregistrer NU + MDP
@@ -10,8 +9,6 @@ def login(self,username,password,stay_connect = False,first_use = False,only_use
         if first_use:pass#enregistrer NU
         if not first_use and not only_username_safe:pass#effacer MDP
 
-    url_get = False
-
     self.driver.get("https://www.instagram.com/accounts/login/")
     sleep(1)
     #Entrée des logins
@@ -19,20 +16,20 @@ def login(self,username,password,stay_connect = False,first_use = False,only_use
     self.driver.find_element_by_xpath('//input[@name="password"]').send_keys(self.password)
     self.driver.find_element_by_xpath('//button[@type="submit"]').click()
     
+    url_get = False
+    password_good,username_good = True,True
+
     while not url_get:
         try:
-            #Si login mauvais
             text_error = self.driver.find_element_by_xpath('//p[contains(text(), "' + "Le nom d’utilisateur entré n’appartient à aucun compte. Veuillez le vérifier et réessayer." + '")]')
-            url_get = True
+            username_good = False
+            return password_good,username_good
         except:
             try:
-                #Si mdp mauvais
                 text_error = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div[2]')
-                url_get = True
-                print("Your password is wrong ! ;)")
+                password_good,username_good = False,False
+                return password_good,username_good
             except:
                 if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
-                    #Si login et mdp bon !
-                    url_get = True
-                    self.account_login,self.username_good,self.password_good = True,True,True
-                    print("\nBonjour "+self.username+", vous êtes maintenant connécté !")
+                    return password_good,username_good
+                    
