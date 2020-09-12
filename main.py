@@ -1,5 +1,5 @@
-from ID.get_login_informations import get_login
 from time import sleep
+from fonctions.login_console import login
 
 class IG_BOT():
             
@@ -8,12 +8,8 @@ class IG_BOT():
         
         self.start_driver()
 
-        self.username_good,self.password_good = False,False
         self.username, self.password ="",""
-        while not self.account_login:
-            self.log_not_save = False
-            self.username, self.password = get_login(self)
-            self.login()
+        login(self)
         '''
         A expliquer !
             verify files:
@@ -33,36 +29,5 @@ class IG_BOT():
             self.driver = webdriver.Chrome()
         except ValueError:
             print("Something went wrong verify your driver files")
-        
-    def login(self):
-        self.driver.get("https://www.instagram.com/accounts/login/")
-        sleep(1)
-        #Entrée des logins
-        self.driver.find_element_by_xpath('//input[@name="username"]').send_keys(self.username)
-        self.driver.find_element_by_xpath('//input[@name="password"]').send_keys(self.password)
-        self.driver.find_element_by_xpath('//button[@type="submit"]').click()
-        url_get = False
-        
-        while not url_get:
-            try:
-                #Si login mauvais
-                text_error = self.driver.find_element_by_xpath('//p[contains(text(), "' + "Le nom d’utilisateur entré n’appartient à aucun compte. Veuillez le vérifier et réessayer." + '")]')
-                url_get = True
-                print("Your username is wrong ! ;)")
-                if self.log_not_save == False : self.log_not_save = True
-            except:
-                try:
-                    #Si mdp mauvais
-                    text_error = self.driver.find_element_by_xpath('//*[@id="loginForm"]/div[2]')
-                    url_get = True
-                    print("Your password is wrong ! ;)")
-                    self.username_good = True
-                    if self.log_not_save == False : self.log_not_save = True
-                except:
-                    if self.driver.current_url == "https://www.instagram.com/accounts/onetap/?next=%2F":
-                        #Si login et mdp bon !
-                        url_get = True
-                        self.account_login,self.username_good,self.password_good = True,True,True
-                        print("\nBonjour "+self.username+", vous êtes maintenant connécté !")
-                    
+
 if __name__ == "__main__":IG_BOT()

@@ -1,5 +1,5 @@
 import json,os
-if not __name__ == "__main__":from Secret.cryptage import crypt_password
+if not __name__ == "__main__":from fonctions.secret.cryptage import crypt_password
 
 secret_file = str(os.path.dirname(os.path.abspath(__file__)))+'/secret.json'
 

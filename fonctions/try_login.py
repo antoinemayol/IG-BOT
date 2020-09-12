@@ -1,13 +1,13 @@
 from time import sleep
 
-def try_login(self,username,password,stay_connect = False,first_use = False,only_username_safe = False):
+def try_login(self,stay_connect=False,connection_type=0):
 
     if stay_connect:
-        if first_use:pass#enregistrer NU + MDP
-        if only_username_safe:pass#enregistrer MDP
+        if connection_type==0:pass#enregistrer NU + MDP
+        if connection_type==2:pass#enregistrer MDP
     elif not stay_connect:
-        if first_use:pass#enregistrer NU
-        if not first_use and not only_username_safe:pass#effacer MDP
+        if connection_type==0:pass#enregistrer NU
+        if connection_type==1:pass#effacer MDP
 
     self.driver.get("https://www.instagram.com/accounts/login/")
     sleep(1)
